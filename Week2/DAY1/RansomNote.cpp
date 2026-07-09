@@ -1,23 +1,26 @@
 class Solution {
 public:
-    int firstUniqChar(string s) {
+    bool canConstruct(string ransomNote, string magazine) {
 
-        for(int i = 0; i < s.length(); i++) {
+        vector<bool> used(magazine.size(), false);
 
-            bool unique = true;
+        for(char c : ransomNote) {
 
-            for(int j = 0; j < s.length(); j++) {
+            bool found = false;
 
-                if(i != j && s[i] == s[j]) {
-                    unique = false;
+            for(int i = 0; i < magazine.size(); i++) {
+
+                if(!used[i] && magazine[i] == c) {
+                    used[i] = true;
+                    found = true;
                     break;
                 }
             }
 
-            if(unique)
-                return i;
+            if(!found)
+                return false;
         }
 
-        return -1;
+        return true;
     }
 };
