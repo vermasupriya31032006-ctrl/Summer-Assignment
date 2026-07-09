@@ -3,15 +3,26 @@ class Solution {
 public:
     bool checkInclusion(string s1, string s2) {
 
-        sort(s1.begin(), s1.end());
+        if (s1.length() > s2.length())
+            return false;
 
-        for(int i = 0; i <= s2.length() - s1.length(); i++) {
+        vector<int> count1(26, 0);
+        vector<int> count2(26, 0);
 
-            string temp = s2.substr(i, s1.length());
+        for (int i = 0; i < s1.length(); i++) {
+            count1[s1[i] - 'a']++;
+            count2[s2[i] - 'a']++;
+        }
 
-            sort(temp.begin(), temp.end());
+        if (count1 == count2)
+            return true;
 
-            if(temp == s1)
+        for (int i = s1.length(); i < s2.length(); i++) {
+
+            count2[s2[i] - 'a']++;
+            count2[s2[i - s1.length()] - 'a']--;
+
+            if (count1 == count2)
                 return true;
         }
 
